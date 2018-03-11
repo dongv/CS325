@@ -1,7 +1,7 @@
 
 /***********************************************
-** Sam Chew  933191613
-** 2018/01/14
+** Vinh Dong, Shara Orcutt, Sam Chew
+** 2018 Winter
 ** CS325  TSP Project Group 14
 **
 ** Genetic Algorithm Solution
