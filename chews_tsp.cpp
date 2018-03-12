@@ -81,12 +81,21 @@ int main(int argc, char* argv[])
     
     
     //prepare the printOutput parameters
+    
+    outputFilename = inputFilename + ".tour";
+    
+    
+    /*Code to replace *.txt with *.tour 
     int filenameCharQty;
     filenameCharQty = inputFilename.length();
     filenameCharQty = filenameCharQty -3;
     outputFilename = inputFilename.substr(0,filenameCharQty);
     outputFilename = outputFilename + "tour";
+    */
+    
+    //hardcode a totalvalue
     totalValue = 356;
+    //build a test tour of city id values
     int c;
     for (c = 0; c < (int) cities.size(); c++){
         aTour.push_back(cities.at(c).getId());
