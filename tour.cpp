@@ -16,7 +16,7 @@ Tour::Tour() {
 }
 
 // Creates a random individual													***  NEED TO DEBUG WHEN CONNECTED AND GET VECTOR FROM CITY FILES ***
-void Tour::generateIndividual(tspCity thisTour []) {
+void Tour::generateIndividual(tspCity thisTour[]) {
 	// Loop through all our destination cities and add them to our tour
 	for (int i = 0; i < cityIndex; i++) {		
 		setCity(thisTour, i, getCity(thisTour, i));
