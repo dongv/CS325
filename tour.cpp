@@ -9,64 +9,82 @@
 #include <array>
 #include <chrono>
 #include "tour.hpp"
+#include "tspCity.hpp"
 #include "tspFileHandler.hpp"
 
+
+// Constructs a blank tour
 Tour::Tour() {
-	
+
+	cityArray = new tspCity[&Cities.size];
+	cityIndex = 0;
+	fitness = 0;
+	distance = 0;
+	for (int i = 0; i < &Cities.size; i++) {
+		cityArray[i] = Cities[i];
+		cityIndex++;
+	}
 }
 
-// Creates a random individual													***  NEED TO DEBUG WHEN CONNECTED AND GET VECTOR FROM CITY FILES ***
-void Tour::generateIndividual(tspCity thisTour[]) {
+Tour::Tour(tspCity tour[]) {
+	for (int i = 0; i < tourSize(); i++) {
+		this[i] = tour[i];
+	}
+}
+
+Tour::~Tour() {
+}
+
+// Creates a random individual													
+void Tour::generateIndividual() {
 	// Loop through all our destination cities and add them to our tour
-	for (int i = 0; i < cityIndex; i++) {		
-		setCity(thisTour, i, getCity(thisTour, i));
+	for (int i = 0; i < tourSize(); i++) {		
+		setCity(i, getCity(i));
 	}
 
 	// Randomly reorder the tour
-	//unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();			//Next two lines were the code we looked at Sunday evening - in hangout chat
-	//std::shuffle(*thisTour.begin()), thisTour.end(), std::default_random_engine(seed));
-	std::random_shuffle(&thisTour[0], &thisTour[cityIndex]);
+	std::random_shuffle(&this[0], &this[tourSize()]);
 }
 
 // Sets a city in a certain position within a tour	--DONE
-void Tour::setCity(tspCity thisTour[], int tourPosition, tspCity thisCity) {
-	thisTour[tourPosition] = thisCity;
+void Tour::setCity(int tourPosition, tspCity thisCity) {
+	this[tourPosition] = thisCity;
 	fitness = 0;
 	distance = 0;
 }
 
-// Gets the total distance of the tour				--ALIGN
-int Tour::getDistance(tspCity thisTour[]) {
+// Gets the total distance of the tour
+int Tour::getDistance() {
 	if (distance == 0) {
 		int tourDistance = 0;
 		// Loop through our tour's cities
-		for (int i = 0; i < cityIndex; i++) {
+		for (int i = 0; i < tourSize(); i++) {
 			// Get city we're travelling from
-			tspCity fromCity = getCity(thisTour, i);						//check when aligned
+			tspCity fromCity = getCity(i);						
 			// City we're travelling to
-			tspCity destinationCity;										//check when aligned
+			tspCity destinationCity;										
 			// Check we're not on our tour's last city, if we are set our 
 			// tour's final destination city to our starting city
-			if (i + 1 < cityIndex) {
-				destinationCity = getCity(thisTour, i + 1);
+			if (i + 1 < tourSize()) {
+				destinationCity = getCity(i + 1);
 			}
 			else {
-				destinationCity = getCity(thisTour, 0);
+				destinationCity = getCity(0);
 			}
 			// Get the distance between the two cities
-			tourDistance += fromCity.distanceTo(destinationCity);		//This will call function in tspCity when the code is aligned.  
+			tourDistance += fromCity.distanceTo(&destinationCity);		//missing pointer  
 		}
 		distance = tourDistance;
 	}
 	return distance;
 }
 
-// Gets a city from the tour						--DONE
-tspCity Tour::getCity(tspCity thisTour[], int tourPosition) {
-	return thisTour[tourPosition];
+// Gets a city from the tour
+tspCity Tour::getCity(int tourPosition) {
+	return this[tourPosition];
 }
 
-// Gets the tours fitness							-- DONE
+// Gets the tours fitness
 double Tour::getFitness() {
 	if (fitness == 0) {
 		fitness = 1 / (double)getDistance();
@@ -74,10 +92,15 @@ double Tour::getFitness() {
 	return fitness;
 }
 
-// Check if the tour contains a city				-- DONE
-bool Tour::containsCity(tspCity thisTour[], tspCity thisCity) {
-	for (int i = 0; i < cityIndex; i++) {
-		if (thisTour[i] == thisCity.getId()
+//Get number of cities on our tour
+int Tour::tourSize() {
+	return this.length;
+}
+
+// Check if the tour contains a city
+bool Tour::containsCity(tspCity thisCity) {
+	for (int i = 0; i < tourSize(); i++) {
+		if (this[i] == thisCity.getId())
 			return true;
 	}
 	return 0;

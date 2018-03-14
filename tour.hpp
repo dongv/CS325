@@ -9,29 +9,14 @@
 
 class Tour: public tspCity {
 private:
-	tspCity *cityArray;
+	tspCity cityArray;
 	double fitness;
 	int distance;
 	int cityIndex;
 
 public:
-	Tour(int thisSize) {
-		fitness = 0;
-		distance = 0;
-		cityIndex = thisSize;
-		cityArray = new tspCity[cityIndex];
-	};
-
-	// Constructs a blank tour
-	Tour() {
-		for (int i = 0; i < tourSize(); i++) {
-			tour.add(null);
-		}
-	}
-
-	Tour(tspCity tour[]) {
-		this[i] = tour;
-	}
+	Tour();
+	Tour(tspCity []);
 	~Tour();
 	void generateIndividual();
 	tspCity getCity(int);
