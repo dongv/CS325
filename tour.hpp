@@ -9,24 +9,25 @@
 
 class Tour: public tspCity {
 private:
-	tspCity **cityArray;
+	tspCity *cityArray;
 	double fitness;
 	int distance;
 	int cityIndex;
 
 public:
-	Tour() {
+	Tour(int thisSize) {
 		fitness = 0;
 		distance = 0;
-		cityIndex = 2;									//Minimum tour size
-		cityArray = new tspCity*[cityIndex];			//NOTE:  *** Can delete this after figuring out how to copy vector to array
+		cityIndex = thisSize;
+		cityArray = new tspCity[cityIndex];
 	};
 	~Tour();
-	void generateIndividual(tspCity []);
-	tspCity getCity(tspCity [], int);
-	void setCity(tspCity [], int, tspCity);
+	void generateIndividual();
+	tspCity getCity(int);
+	void setCity(int, tspCity);
 	double getFitness();
-	int getDistance(tspCity []);
-	bool containsCity(tspCity [], tspCity);
+	int getDistance();
+	int * tourSize();
+	bool containsCity(tspCity);
 };
 #endif /* TOUR_HPP */
