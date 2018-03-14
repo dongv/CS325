@@ -21,13 +21,24 @@ public:
 		cityIndex = thisSize;
 		cityArray = new tspCity[cityIndex];
 	};
+
+	// Constructs a blank tour
+	Tour() {
+		for (int i = 0; i < tourSize(); i++) {
+			tour.add(null);
+		}
+	}
+
+	Tour(tspCity tour[]) {
+		this[i] = tour;
+	}
 	~Tour();
 	void generateIndividual();
 	tspCity getCity(int);
 	void setCity(int, tspCity);
 	double getFitness();
 	int getDistance();
-	int * tourSize();
+	int tourSize();
 	bool containsCity(tspCity);
 };
 #endif /* TOUR_HPP */
