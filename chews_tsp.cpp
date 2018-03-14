@@ -30,6 +30,9 @@
 //include libraries
 #include "tspCity.hpp"
 #include "tspFileHandler.hpp"
+#include "Tour.hpp"
+#include "GA.hpp"
+#include "Population.hpp"
 
 
 //Establish unique identifiers within namespace
