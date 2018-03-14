@@ -16,12 +16,12 @@
 // Constructs a blank tour
 Tour::Tour() {
 
-	cityArray = new tspCity[&Cities.size];
+	cityArray = new tspCity[tourSize()];
 	cityIndex = 0;
 	fitness = 0;
 	distance = 0;
-	for (int i = 0; i < &Cities.size; i++) {
-		cityArray[i] = Cities[i];
+	for (int i = 0; i < tourSize(); i++) {
+		cityArray[i] = 0;
 		cityIndex++;
 	}
 }
@@ -35,6 +35,16 @@ Tour::Tour(tspCity tour[]) {
 Tour::~Tour() {
 }
 
+//Populate the initial tour from the vector
+Tour Tour::createInitialTour(vector<tspCity> &Cities) {
+	int size = Cities.size();
+	tspCity * cityArray = new tspCity[size];
+	for (int i = 0; i < size; i++) {
+		cityArray[i] = Cities[i];
+		cityArray++;
+	}
+}
+
 // Creates a random individual													
 void Tour::generateIndividual() {
 	// Loop through all our destination cities and add them to our tour
@@ -46,7 +56,7 @@ void Tour::generateIndividual() {
 	std::random_shuffle(&this[0], &this[tourSize()]);
 }
 
-// Sets a city in a certain position within a tour	--DONE
+// Sets a city in a certain position within a tour
 void Tour::setCity(int tourPosition, tspCity thisCity) {
 	this[tourPosition] = thisCity;
 	fitness = 0;
@@ -72,7 +82,7 @@ int Tour::getDistance() {
 				destinationCity = getCity(0);
 			}
 			// Get the distance between the two cities
-			tourDistance += fromCity.distanceTo(&destinationCity);		//missing pointer  
+			tourDistance += fromCity.distanceTo(&destinationCity); 
 		}
 		distance = tourDistance;
 	}

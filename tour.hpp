@@ -18,6 +18,7 @@ public:
 	Tour();
 	Tour(tspCity []);
 	~Tour();
+	Tour createInitialTour(vector<tspCity> &);
 	void generateIndividual();
 	tspCity getCity(int);
 	void setCity(int, tspCity);
