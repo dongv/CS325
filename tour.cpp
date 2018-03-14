@@ -26,9 +26,10 @@ Tour::Tour() {
 	}
 }
 
-Tour::Tour(vector<tspCity> &Cities) {
-	for (int i = 0; i < this->tourSize(); i++) {
-		this->cityArray[i] = Cities.at(i);
+Tour::Tour(vector<tspCity>* Cities) {
+	this->cityIndex = (int) Cities->size();
+    for (int i = 0; i < this->cityIndex; i++) {
+		this->cityArray[i] = Cities->at(i);
 	}
 }
 
@@ -42,12 +43,14 @@ Tour::~Tour() {
 }
 
 //Populate the initial tour from the vector
-Tour Tour::createInitialTour(vector<tspCity> &Cities) {
-	int size = Cities.size();
+Tour Tour::createInitialTour(vector<tspCity>* Cities) {
+	int size = Cities->size();
     cityIndex = 0;
-	tspCity * cityArray = new tspCity[size];
+//	tspCity* someCities = new tspCity[size];
 	for (int i = 0; i < size; i++) {
-		cityArray[i] = Cities[i];
+		this->cityArray[i].setId(Cities->at(i).getId());
+		this->cityArray[i].setX(Cities->at(i).getX());
+		this->cityArray[i].setY(Cities->at(i).getY());
 		cityIndex++;
 	}
     

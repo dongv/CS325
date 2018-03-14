@@ -24,7 +24,7 @@ public:
     Population(int popSize);
     
     // Construct a population
-    Population(int popSize, vector<tspCity> &);
+    Population(int popSize, vector<tspCity>* );
     
     // Holds population of tours
     Tour* tours;

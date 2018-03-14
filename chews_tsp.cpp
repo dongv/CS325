@@ -69,10 +69,32 @@ int main(int argc, char* argv[])
     //sample call for loadInput
     loadInput(&inputFilename, &cities);
     
-//    // Initialize Tour
-//    aTour = new Tour();
-//    aTour = aTour.createInitialTour(cities);
     
+    
+    //example calculate distance from origin to each other city
+    int testDist;
+    tspCity testOrigin;
+    testOrigin.setId(-1);
+    testOrigin.setX(0);
+    testOrigin.setY(0);
+    for (int i = 0; i < (int) cities.size(); i++){
+        testDist = testOrigin.distanceTo(&cities.at(i));
+        printf("Distance from %d to %d: %d \n",testOrigin.getId(),cities.at(i).getId(),testDist);
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    // Initialize Tour
+    Tour aTour = new Tour(&cities);
+    aTour = aTour.createInitialTour(&cities);
+    
+    /*
+     * 
     // Initialize population
     Population* pop = new Population(50, cities);
     printf("Initial distance: %d", pop->getFittest().getDistance());
@@ -92,11 +114,11 @@ int main(int argc, char* argv[])
     cout << "Solution:";
 //    System.out.println(pop->getFittest());
     
-    
+    */
     
     //prepare the printOutput parameters
-    
     outputFilename = inputFilename + ".tour";
+    int totalValue = 356;
     
     
     /*Code to replace *.txt with *.tour 
@@ -114,7 +136,9 @@ int main(int argc, char* argv[])
     
     
     //sample call for printOutput
-    printOutput(&outputFilename, finalDistance, finalTour);
+    printOutput(&outputFilename, totalValue, aTour);
+    
+    //printOutput(&outputFilename, finalDistance, finalTour);
     
     
 	return 0;

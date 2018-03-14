@@ -16,7 +16,7 @@ Population::Population(int popSize) {
 }
 
 // Construct a population, where popSize is the number of tours
-Population::Population(int popSize, vector<tspCity> &Cities) {
+Population::Population(int popSize, vector<tspCity>* Cities) {
     this->tourQty = popSize;
     tours = new Tour[popSize];
     // Loop and create random order sets of tours

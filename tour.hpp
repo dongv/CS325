@@ -7,6 +7,7 @@
 #define TOUR_HPP
 #include "tspCity.hpp"
 #include <vector>
+#include <new> 
 
 using std::vector;
 
@@ -19,10 +20,10 @@ private:
 
 public:
 	Tour();
-	Tour(vector<tspCity> &);
+	Tour(vector<tspCity>* );
 	Tour(tspCity []);
 	~Tour();
-	Tour createInitialTour(vector<tspCity> &);
+	Tour createInitialTour(vector<tspCity>* );
 	void generateIndividual();
 	tspCity getCity(int);
 	void setCity(int, tspCity);
