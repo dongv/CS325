@@ -6,16 +6,20 @@
 #ifndef TOUR_HPP
 #define TOUR_HPP
 #include "tspCity.hpp"
+#include <vector>
+
+using std::vector;
 
 class Tour: public tspCity {
 private:
-	tspCity cityArray;
+	tspCity* cityArray;
 	double fitness;
 	int distance;
 	int cityIndex;
 
 public:
 	Tour();
+	Tour(vector<tspCity> &);
 	Tour(tspCity []);
 	~Tour();
 	Tour createInitialTour(vector<tspCity> &);

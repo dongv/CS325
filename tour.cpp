@@ -16,19 +16,25 @@
 // Constructs a blank tour
 Tour::Tour() {
 
-	cityArray = new tspCity[tourSize()];
-	cityIndex = 0;
-	fitness = 0;
-	distance = 0;
+	cityArray = new tspCity;
+	this->cityIndex = 0;
+	this->fitness = 0;
+	this->distance = 0;
 	for (int i = 0; i < tourSize(); i++) {
-		cityArray[i] = 0;
+		cityArray[i].setId(-1);
 		cityIndex++;
 	}
 }
 
+Tour::Tour(vector<tspCity> &Cities) {
+	for (int i = 0; i < this->tourSize(); i++) {
+		this->cityArray[i] = Cities.at(i);
+	}
+}
+
 Tour::Tour(tspCity tour[]) {
-	for (int i = 0; i < tourSize(); i++) {
-		this[i] = tour[i];
+	for (int i = 0; i < this->tourSize(); i++) {
+		this->cityArray[i] = tour[i];
 	}
 }
 
@@ -38,11 +44,17 @@ Tour::~Tour() {
 //Populate the initial tour from the vector
 Tour Tour::createInitialTour(vector<tspCity> &Cities) {
 	int size = Cities.size();
+    cityIndex = 0;
 	tspCity * cityArray = new tspCity[size];
 	for (int i = 0; i < size; i++) {
 		cityArray[i] = Cities[i];
-		cityArray++;
+		cityIndex++;
 	}
+    
+    fitness = 0;
+    distance = 0;
+    
+    return this;
 }
 
 // Creates a random individual													
@@ -57,8 +69,8 @@ void Tour::generateIndividual() {
 }
 
 // Sets a city in a certain position within a tour
-void Tour::setCity(int tourPosition, tspCity thisCity) {
-	this[tourPosition] = thisCity;
+void Tour::setCity(int tourPosition, tspCity inputCity) {
+	this->cityArray[tourPosition] = inputCity;
 	fitness = 0;
 	distance = 0;
 }
@@ -91,7 +103,7 @@ int Tour::getDistance() {
 
 // Gets a city from the tour
 tspCity Tour::getCity(int tourPosition) {
-	return this[tourPosition];
+	return this->cityArray[tourPosition];
 }
 
 // Gets the tours fitness
@@ -104,13 +116,13 @@ double Tour::getFitness() {
 
 //Get number of cities on our tour
 int Tour::tourSize() {
-	return this.length;
+	return this->cityIndex;
 }
 
 // Check if the tour contains a city
 bool Tour::containsCity(tspCity thisCity) {
 	for (int i = 0; i < tourSize(); i++) {
-		if (this[i] == thisCity.getId())
+		if ((this->cityArray[i].getId() == thisCity.getId()) & (this->cityArray[i].getId() != -1))
 			return true;
 	}
 	return 0;

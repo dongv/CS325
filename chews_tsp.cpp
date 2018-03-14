@@ -30,7 +30,7 @@
 //include libraries
 #include "tspCity.hpp"
 #include "tspFileHandler.hpp"
-#include "Tour.hpp"
+#include "tour.hpp"
 #include "GA.hpp"
 #include "Population.hpp"
 
@@ -56,9 +56,10 @@ int main(int argc, char* argv[])
     //Establish program variable identifiers
     string inputFilename;
     string outputFilename;
-    int totalValue;
-    vector<int> aTour;
+    int finalDistance;
+    Tour finalTour;
     vector<tspCity> cities;
+    GA geneticAlgo;
     
     
     
@@ -68,18 +69,28 @@ int main(int argc, char* argv[])
     //sample call for loadInput
     loadInput(&inputFilename, &cities);
     
+//    // Initialize Tour
+//    aTour = new Tour();
+//    aTour = aTour.createInitialTour(cities);
     
-    
-    //example calculate distance from origin to each other city
-    int testDist;
-    tspCity testOrigin;
-    testOrigin.setId(-1);
-    testOrigin.setX(0);
-    testOrigin.setY(0);
-    for (int i = 0; i < (int) cities.size(); i++){
-        testDist = testOrigin.distanceTo(&cities.at(i));
-        printf("Distance from %d to %d: %d \n",testOrigin.getId(),cities.at(i).getId(),testDist);
+    // Initialize population
+    Population* pop = new Population(50, cities);
+    printf("Initial distance: %d", pop->getFittest().getDistance());
+
+    // Evolve population for 100 generations
+    pop = geneticAlgo.evolvePopulation(pop);
+    for (int i = 0; i < 100; i++) {
+        pop = geneticAlgo.evolvePopulation(pop);
     }
+    
+    finalTour = pop->getFittest();
+    finalDistance = finalTour.getDistance();
+
+    // Print final results
+    cout << "Finished";
+    printf("Final distance: %d", finalDistance);
+    cout << "Solution:";
+//    System.out.println(pop->getFittest());
     
     
     
@@ -96,20 +107,14 @@ int main(int argc, char* argv[])
     outputFilename = outputFilename + "tour";
     */
     
-    //hardcode a totalvalue
-    totalValue = 356;
-    //build a test tour of city id values
-    int c;
-    for (c = 0; c < (int) cities.size(); c++){
-        aTour.push_back(cities.at(c).getId());
-    }
-    
     //DEBUG_MODE:separation line
     if (DEBUG)
         cout << "---------------------------\n";
     
+    
+    
     //sample call for printOutput
-    printOutput(&outputFilename, totalValue, &aTour);
+    printOutput(&outputFilename, finalDistance, finalTour);
     
     
 	return 0;

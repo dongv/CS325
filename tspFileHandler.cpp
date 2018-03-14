@@ -57,7 +57,7 @@ void loadInput(string* filename, vector<tspCity> *cities){
     
 }
 
-void printOutput(string* filename, int tourValue, vector<int> *finalTour){
+void printOutput(string* filename, int tourValue, Tour finalTour){
     
     //Attempt to create&open output file
     std::ofstream outputFile;
@@ -72,12 +72,12 @@ void printOutput(string* filename, int tourValue, vector<int> *finalTour){
     
     
 	//for each element of the tour
-    for (int i = 0; i < (int) finalTour->size(); i++) {
+    for (int i = 0; i < (int) finalTour.tourSize(); i++) {
         //in DEBUG_MODE: print each value as a line to stdout
         if (DEBUG)
-            cout << finalTour->at(i) << "\n";
+            cout << finalTour.getCity(i).getId() << "\n";
         //print each value as a line in output file
-        outputFile << finalTour->at(i) << "\n";
+        outputFile << finalTour.getCity(i).getId() << "\n";
     }
     
     outputFile.close();

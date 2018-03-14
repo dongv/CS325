@@ -7,13 +7,27 @@
 #ifndef Population_hpp
 #define Population_hpp
 
+
+#include "tour.hpp"
+
 class Population {
+private:
+    int tourQty;
+    
 public:
-    // Holds population of tours
-    Tour[] tours;
+    
+    Population();
+    
+    virtual ~Population();
     
     // Construct a population
     Population(int popSize);
+    
+    // Construct a population
+    Population(int popSize, vector<tspCity> &);
+    
+    // Holds population of tours
+    Tour* tours;
     
     // Saves a tour
     void saveTour(int index, Tour tour);
@@ -26,5 +40,6 @@ public:
     
     // Gets population size
     int populationSize();
+};
 
 #endif /* Population_hpp */

@@ -26,11 +26,12 @@ using std::string;
 using std::vector;
 
 #include "tspCity.hpp"
+#include "tour.hpp"
 
 
 void loadInput(string* filename, vector<tspCity> *cities);
 
-void printOutput(string* filename, int tourValue, vector<int> *finalTour);
+void printOutput(string* filename, int tourValue, Tour finalTour);
 
 #endif /* TSPFILEHANDLER_HPP */
 

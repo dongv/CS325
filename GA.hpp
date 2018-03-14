@@ -7,7 +7,10 @@
 #ifndef GA_hpp
 #define GA_hpp
 
-#include <stdio.h>
+#include <cstdlib>  //for rand
+#include "Population.hpp"
+#include "tour.hpp"
+#include <vector>
 
 class GA {
 private:
@@ -18,8 +21,12 @@ private:
     
 public:
     
+    GA();
+    
+    virtual ~GA();
+    
     // Evolves a population over one generation
-    Population evolvePopulation(Population pop);
+    Population* evolvePopulation(Population* pop);
     
     // Applies crossover to a set of parents and creates offspring
     Tour crossover(Tour parent1, Tour parent2);
@@ -28,7 +35,7 @@ public:
     void mutate(Tour tour);
     
     // Selects candidate tour for crossover
-    Tour tournamentSelection(Population pop);
+    Tour tournamentSelection(Population* pop);
 };
 
 #endif /* Genetic_hpp */
