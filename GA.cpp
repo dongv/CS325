@@ -16,107 +16,101 @@ GA::~GA() {
 }
 
 // Evolves a population over one generation
-Population* GA::evolvePopulation(Population* pop) {
-    Population* newPopulation = new Population( pop->populationSize());
+Population GA::evolvePopulation(Population pop) {
+    Population newGen = Population();
     
     // Keep our best individual if elitism is enabled
-    int elitismOffset = 0;
-    if (elitism) {
-        newPopulation->saveTour(0, pop->getFittest());
-        elitismOffset = 1;
+    int eliteOffset = 0;
+    if (elite) {
+        newGen.saveTour(pop.getFittest());
+        eliteOffset = 1;
     }
-    
-    // Crossover population
-    // Loop over the new population's size and create individuals from
-    // Current population
-    for (int i = elitismOffset; i < newPopulation->populationSize(); i++) {
+   
+    // Loop over the new population's size and create child from
+    // selected parents
+    for (int i = eliteOffset; i < newGen.populationSize(); i++) {
         // Select parents
-        Tour parent1 = tournamentSelection(pop);
-        Tour parent2 = tournamentSelection(pop);
+        Tour p1 = tournamentSelection(pop);
+        Tour p2 = tournamentSelection(pop);
         // Crossover parents
-        Tour child = crossover(parent1, parent2);
+        Tour child = crossover(p1, p2);
         // Add child to new population
-        newPopulation->saveTour(i, child);
+        newGen.saveTour(child);
     }
     
-    // Mutate the new population a bit to add some new genetic material
-    for (int i = elitismOffset; i < newPopulation->populationSize(); i++) {
-        mutate(newPopulation->getTour(i));
+    // Mutate the new population to increase variation
+    for (int i = eliteOffset; i < newGen.populationSize(); i++) {
+        mutate(newGen.getTour(i));
     }
     
-    return newPopulation;
+    return newGen;
 }
     
-// Applies crossover to a set of parents and creates offspring
-Tour GA::crossover(Tour parent1, Tour parent2) {
+// crossover to a set of parents and create child
+Tour GA::crossover(Tour p1, Tour p2) {
     // Create new child tour
-    Tour child = new Tour();
-    
-    // Get start and end subset tour positions for parent1's tour
-    int startPos = (rand() % parent1.tourSize());
-    int endPos = (rand() % parent1.tourSize());
-    
-    // Loop and add the sub tour from parent1 to our child
-    for (int i = 0; i < child.tourSize(); i++) {
-        // If our start position is less than the end position
-        if (startPos < endPos && i > startPos && i < endPos) {
-            child.setCity(i, parent1.getCity(i));
-        } // If start position is larger than end position it 
-        else if (startPos > endPos) {
-            if (!(i < startPos && i > endPos)) {
-                child.setCity(i, parent1.getCity(i));
-            }
-        }
-    }
-    
-    // Loop through parent2's city tour
-    for (int i = 0; i < parent2.tourSize(); i++) {
-        // If child doesn't have the city add it
-        if (!child.containsCity(parent2.getCity(i))) {
-            // Loop to find a spare position in the child's tour
-            for (int j = 0; j < child.tourSize(); j++) {
-                // Spare position found, add city
-                if (child.getCity(j).getId() == -1) {
-                    child.setCity(j, parent2.getCity(i));
-                }
-            }
-        }
-    }
-    return child;
+    Tour child = Tour();
+	int pSize = p1.getTourSize();
+	std::unordered_set<int> citiesOnTour; // Holds IDs of cities currently on tour, prevents repeats
+	int s1 = rand() % (pSize / 2); // How much of tour to take from first half of parent1
+	int s2 = rand() % (pSize / 2); // How much of tour to take from second half of parent1
+	s2 = pSize - s2; // Where to start taking chromosones from parent1
+	for (int i = 0; i < s1; i++) // Add cities from first half of parent1;
+	{
+		child.setCity(p1.getCity(i));
+		citiesOnTour.insert(p1.getCity(i).getID());
+	}
+	for (int i = s2; i < pSize; i++)
+	{
+		child.setCity(p1.getCity(i));
+		citiesOnTour.insert(p1.getCity(i).getID());
+	}
+	// Fill in missing cities using parent 2
+	int iter = 0;
+	while (child.getTourSize() != pSize)
+	{
+		if (citiesOnTour.count(p2.getCity(iter).getID()) == 0)
+		{
+			child.setCity(p2.getCity(iter));
+		}
+		iter++;
+	}
+	return child;
 }
+
     
 // Mutate a tour using swap mutation
 void GA::mutate(Tour tour) {
     // Loop through tour cities
-    for(int tourPos1=0; tourPos1 < tour.tourSize(); tourPos1++){
+    for(int i=0; i < tour.tourSize(); i++){
         // Apply mutation rate
-        if((rand()%100) < mutationRate){
+        if((rand()%100) < muteRate){
             // Get a second random position in the tour
-            int tourPos2 = (rand() % tour.tourSize());
+            int tourPos = (rand() % tour.tourSize());
             
             // Get the cities at target position in tour
-            tspCity city1 = tour.getCity(tourPos1);
-            tspCity city2 = tour.getCity(tourPos2);
+            tspCity city1 = tour.getCity(i);
+            tspCity city2 = tour.getCity(tourPos);
             
             // Swap them around
-            tour.setCity(tourPos2, city1);
-            tour.setCity(tourPos1, city2);
+            tour.setCity(tourPos, city1);
+            tour.setCity(i, city2);
         }
     }
 }
     
 // Selects candidate tour for crossover
-Tour GA::tournamentSelection(Population* pop) {
+Tour GA::tournamentSelection(Population pop) {
     // Create a tournament population
-    Population* tournament = new Population(tournamentSize);
+	Population tournament;
     // For each place in the tournament get a random candidate tour and
     // add it
-    for (int i = 0; i < tournamentSize; i++) {
-        int randomId = (rand() % pop->populationSize());
-        tournament->saveTour(i, pop->getTour(randomId));
+    for (int i = 0; i < tSize; i++) {
+        int randID = (rand() % pop.populationSize());
+        tournament.saveTour(pop.getTour(randID));
     }
     // Get the fittest tour
-    Tour fittest = tournament->getFittest();
+    Tour fittest = tournament.getFittest();
     return fittest;
 }
 

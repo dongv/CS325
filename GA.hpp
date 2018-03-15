@@ -15,9 +15,10 @@
 class GA {
 private:
     /* GA parameters */
-    double mutationRate = 2;
-    int tournamentSize = 5;
-    bool elitism = true;
+    double muteRate = 2;
+    int tSize = 5;
+    bool elite = true;
+	std::vector<Tour> tours;
     
 public:
     
@@ -26,16 +27,16 @@ public:
     virtual ~GA();
     
     // Evolves a population over one generation
-    Population* evolvePopulation(Population* pop);
+    Population evolvePopulation(Population pop);
     
     // Applies crossover to a set of parents and creates offspring
-    Tour crossover(Tour parent1, Tour parent2);
+    Tour crossover(Tour p1, Tour p2);
     
     // Mutate a tour using swap mutation
     void mutate(Tour tour);
     
     // Selects candidate tour for crossover
-    Tour tournamentSelection(Population* pop);
+    Tour tournamentSelection(Population pop);
 };
 
 #endif /* Genetic_hpp */
