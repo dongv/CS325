@@ -42,13 +42,15 @@ Population::~Population() {
 }
     
 // Saves a tour to the population
-void Population::saveTour(int index, Tour tour) {
-    this->tours[index] = tour;
+void Population::saveTour(int index, Tour* tour) {
+    //int cityQty = tour.tourSize();
+    //for (int i = 0; i < cityQty; i++){
+    //    this->tours[index].setCity(i,tour.getCity(i));
+    //}
     
-//	this->cityArray = nullptr;
-//	this->cityIndex = 0;
-//	this->fitness = 0;
-//	this->distance = 0;
+    
+    this->tours[index].setSize(tour.tourSize());
+    this->tours = tour;
 }
     
 // Gets a tour from population
@@ -57,7 +59,7 @@ Tour Population::getTour(int index) {
 }
     
 // Gets the best tour in the population
-Tour Population::getFittest() {
+Tour* Population::getFittest() {
     //set initial tour as the fittest
     Tour* best = &tours[0];
     int popSize = populationSize();
@@ -70,7 +72,7 @@ Tour Population::getFittest() {
 //            best = getTour(i);
         }
     }
-    return *best;
+    return best;
 }
     
 // Gets population size

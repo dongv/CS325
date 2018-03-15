@@ -31,7 +31,7 @@ using std::vector;
 
 void loadInput(string* filename, vector<tspCity> *cities);
 
-void printOutput(string* filename, int tourValue, Tour finalTour);
+void printOutput(string* filename, int tourValue, Tour* finalTour);
 
 #endif /* TSPFILEHANDLER_HPP */
 

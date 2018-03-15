@@ -56,9 +56,10 @@ int main(int argc, char* argv[])
     //Establish program variable identifiers
     string inputFilename;
     string outputFilename;
-    int finalDistance;
+//    int finalDistance;
     Tour finalTour;
     vector<tspCity> cities;
+    vector<Population*> popCleanUp;
     GA geneticAlgo;
     
     
@@ -96,16 +97,18 @@ int main(int argc, char* argv[])
     
     // Initialize population
     Population* pop = new Population(50, &cities);
-    Tour bestTour;
+    Tour* bestTour;
     bestTour = pop->getFittest();
-    int totalValue = bestTour.getDistance();
+    int totalValue = bestTour->getDistance();
     printf("Initial distance: %d", totalValue);
 
     // Evolve population for 100 generations
+    popCleanUp.push_back(pop);
     pop = geneticAlgo.evolvePopulation(pop);
     /*
     for (int i = 0; i < 100; i++) {
-        pop = geneticAlgo.evolvePopulation(pop);
+       popCleanUp.push_back(pop); 
+       pop = geneticAlgo.evolvePopulation(pop);
     }
     
     finalTour = pop->getFittest();

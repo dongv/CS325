@@ -29,7 +29,7 @@ public:
     Population* evolvePopulation(Population* pop);
     
     // Applies crossover to a set of parents and creates offspring
-    Tour crossover(Tour parent1, Tour parent2);
+    Tour* crossover(Tour parent1, Tour parent2);
     
     // Mutate a tour using swap mutation
     void mutate(Tour tour);

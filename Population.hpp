@@ -31,13 +31,13 @@ public:
     
     
     // Saves a tour
-    void saveTour(int index, Tour tour);
+    void saveTour(int index, Tour* tour);
     
     // Gets a tour from population
     Tour getTour(int index);
     
     // Gets the best tour in the population
-    Tour getFittest();
+    Tour* getFittest();
     
     // Gets population size
     int populationSize();

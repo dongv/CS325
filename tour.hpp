@@ -21,7 +21,7 @@ private:
 public:
 	Tour();
 	Tour(vector<tspCity>* );
-	Tour(tspCity []);
+	Tour(const Tour&);
 	~Tour();
 	void createInitialTour(vector<tspCity>* );
 	void generateIndividual();
@@ -30,6 +30,7 @@ public:
 	double getFitness();
 	int getDistance();
 	int tourSize();
+	void setSize(int);
 	bool containsCity(tspCity);
 };
 #endif /* TOUR_HPP */

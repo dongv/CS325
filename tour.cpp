@@ -33,9 +33,10 @@ Tour::Tour(vector<tspCity>* Cities) {
 	}
 }
 
-Tour::Tour(tspCity tour[]) {
-	for (int i = 0; i < this->tourSize(); i++) {
-		this->cityArray[i] = tour[i];
+Tour::Tour(const Tour& origTour) {
+	this->cityIndex = origTour->tourSize();
+    for (int i = 0; i < origTour->tourSize(); i++) {
+		this->cityArray[i] = origTour->cityArray[i];
 	}
 }
 
@@ -115,6 +116,11 @@ double Tour::getFitness() {
 		fitness = 1 / (double)getDistance();
 	}
 	return fitness;
+}
+
+//Set the Tour Size
+void Tour::setSize(int newSize){
+    this->cityIndex = newSize;
 }
 
 //Get number of cities on our tour
