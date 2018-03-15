@@ -16,14 +16,14 @@
 // Constructs a blank tour
 Tour::Tour() {
 
-	cityArray = new tspCity;
+	this->cityArray = nullptr;
 	this->cityIndex = 0;
 	this->fitness = 0;
 	this->distance = 0;
-	for (int i = 0; i < tourSize(); i++) {
-		cityArray[i].setId(-1);
-		cityIndex++;
-	}
+//	for (int i = 0; i < tourSize(); i++) {
+//		this->cityArray[i].setId(-1);
+//		this->cityIndex++;
+//	}
 }
 
 Tour::Tour(vector<tspCity>* Cities) {
@@ -43,32 +43,32 @@ Tour::~Tour() {
 }
 
 //Populate the initial tour from the vector
-Tour Tour::createInitialTour(vector<tspCity>* Cities) {
+void Tour::createInitialTour(vector<tspCity>* Cities) {
 	int size = Cities->size();
-    cityIndex = 0;
-//	tspCity* someCities = new tspCity[size];
+    this->cityIndex = 0;
+	tspCity* someCities = new tspCity[size];
 	for (int i = 0; i < size; i++) {
-		this->cityArray[i].setId(Cities->at(i).getId());
-		this->cityArray[i].setX(Cities->at(i).getX());
-		this->cityArray[i].setY(Cities->at(i).getY());
-		cityIndex++;
+		someCities[i].setId(Cities->at(i).getId());
+		someCities[i].setX(Cities->at(i).getX());
+		someCities[i].setY(Cities->at(i).getY());
+		this->cityIndex++;
 	}
     
-    fitness = 0;
-    distance = 0;
+    this->cityArray = someCities;
+    this->fitness = 0;
+    this->distance = 0;
     
-    return this;
 }
 
 // Creates a random individual													
 void Tour::generateIndividual() {
-	// Loop through all our destination cities and add them to our tour
-	for (int i = 0; i < tourSize(); i++) {		
-		setCity(i, getCity(i));
-	}
+//	// Loop through all our destination cities and add them to our tour
+//	for (int i = 0; i < tourSize(); i++) {		
+//		setCity(i, getCity(i));
+//	}
 
 	// Randomly reorder the tour
-	std::random_shuffle(&this[0], &this[tourSize()]);
+	std::random_shuffle(&this->cityArray[0], &this->cityArray[this->tourSize()-1]);
 }
 
 // Sets a city in a certain position within a tour

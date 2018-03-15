@@ -16,6 +16,9 @@ private:
     
 public:
     
+    // Holds population of tours
+    Tour* tours;
+    
     Population();
     
     virtual ~Population();
@@ -26,8 +29,6 @@ public:
     // Construct a population
     Population(int popSize, vector<tspCity>* );
     
-    // Holds population of tours
-    Tour* tours;
     
     // Saves a tour
     void saveTour(int index, Tour tour);

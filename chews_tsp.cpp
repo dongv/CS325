@@ -72,15 +72,15 @@ int main(int argc, char* argv[])
     
     
     //example calculate distance from origin to each other city
-    int testDist;
-    tspCity testOrigin;
-    testOrigin.setId(-1);
-    testOrigin.setX(0);
-    testOrigin.setY(0);
-    for (int i = 0; i < (int) cities.size(); i++){
-        testDist = testOrigin.distanceTo(&cities.at(i));
-        printf("Distance from %d to %d: %d \n",testOrigin.getId(),cities.at(i).getId(),testDist);
-    }
+//    int testDist;
+//    tspCity testOrigin;
+//    testOrigin.setId(-1);
+//    testOrigin.setX(0);
+//    testOrigin.setY(0);
+//    for (int i = 0; i < (int) cities.size(); i++){
+//        testDist = testOrigin.distanceTo(&cities.at(i));
+//        printf("Distance from %d to %d: %d \n",testOrigin.getId(),cities.at(i).getId(),testDist);
+//    }
     
     
     
@@ -89,18 +89,21 @@ int main(int argc, char* argv[])
     
     
     
-    // Initialize Tour
-    Tour aTour = new Tour(&cities);
-    aTour = aTour.createInitialTour(&cities);
+//    // Initialize Tour
+//    Tour newTour;
+//    newTour.createInitialTour(&cities);
     
-    /*
-     * 
+    
     // Initialize population
-    Population* pop = new Population(50, cities);
-    printf("Initial distance: %d", pop->getFittest().getDistance());
+    Population* pop = new Population(50, &cities);
+    Tour bestTour;
+    bestTour = pop->getFittest();
+    int totalValue = bestTour.getDistance();
+    printf("Initial distance: %d", totalValue);
 
     // Evolve population for 100 generations
     pop = geneticAlgo.evolvePopulation(pop);
+    /*
     for (int i = 0; i < 100; i++) {
         pop = geneticAlgo.evolvePopulation(pop);
     }
@@ -118,7 +121,6 @@ int main(int argc, char* argv[])
     
     //prepare the printOutput parameters
     outputFilename = inputFilename + ".tour";
-    int totalValue = 356;
     
     
     /*Code to replace *.txt with *.tour 
@@ -136,7 +138,7 @@ int main(int argc, char* argv[])
     
     
     //sample call for printOutput
-    printOutput(&outputFilename, totalValue, aTour);
+    printOutput(&outputFilename, totalValue, bestTour);
     
     //printOutput(&outputFilename, finalDistance, finalTour);
     

@@ -62,7 +62,7 @@ int tspCity::distanceTo(tspCity* dest){
     
     sqrtVal = sqrt((xDist * xDist) + (yDist * yDist));
     result = round(sqrtVal);
-    printf("sqrt(%d^2 + %d^2) = %f\n",xDist, yDist, sqrtVal);
+    //printf("sqrt(%d^2 + %d^2) = %f\n",xDist, yDist, sqrtVal);
     
     return result;
 }

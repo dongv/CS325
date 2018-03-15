@@ -50,7 +50,7 @@ Population* GA::evolvePopulation(Population* pop) {
 // Applies crossover to a set of parents and creates offspring
 Tour GA::crossover(Tour parent1, Tour parent2) {
     // Create new child tour
-    Tour child = new Tour();
+    Tour child;
     
     // Get start and end subset tour positions for parent1's tour
     int startPos = (rand() % parent1.tourSize());

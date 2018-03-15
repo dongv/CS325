@@ -11,7 +11,7 @@
 
 using std::vector;
 
-class Tour: public tspCity {
+class Tour {
 private:
 	tspCity* cityArray;
 	double fitness;
@@ -23,7 +23,7 @@ public:
 	Tour(vector<tspCity>* );
 	Tour(tspCity []);
 	~Tour();
-	Tour createInitialTour(vector<tspCity>* );
+	void createInitialTour(vector<tspCity>* );
 	void generateIndividual();
 	tspCity getCity(int);
 	void setCity(int, tspCity);
