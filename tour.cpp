@@ -3,145 +3,70 @@
 * Author: orcutts
 */
 
-#include <iostream>
+#include <vector>
 #include <algorithm>
-#include <random>
-#include <array>
-#include <chrono>
 #include "tour.hpp"
-#include "tspCity.hpp"
-#include "tspFileHandler.hpp"
+using std::vector;
 
-// Constructs a blank tour
-Tour::Tour() {
-	cityArray = new tspCity[1];					//Added brackets and size - so it isn't creating a new city
-	cityIndex = 0;
-	fitness = 0;
-	distance = 0;
-	for (int i = 0; i < tourSize(); i++) {		
-		cityArray[i].setId(-1);
-		cityIndex++;
-	}
+// Constructor
+Tour::Tour(vector<tspCity> cities){
+	createIndividual(cities);
 }
 
-Tour::Tour(int thisPopSize) {
-	cityArray = new tspCity[thisPopSize];					//ACreated another constructor
-	cityIndex = thisPopSize;
-	fitness = 0;
-	distance = 0;
-	for (int i = 0; i < thisPopSize; i++) {		
-		cityArray[i].setId(-1);
-		//cityIndex++;
-	}
+// Default constructor
+Tour::Tour(){
+	size = 0;
 }
 
-Tour::Tour(vector<tspCity> &Cities) {			//Added the rest of the attributes for creation
-	cityArray = new tspCity[Cities.size()];					 
-	this->cityIndex = Cities.size();
-	this->fitness = 0;
-	this->distance = 0;
-	for (int i = 0; i < this->tourSize(); i++) {
-		this->cityArray[i] = Cities.at(i);
-	}
+// Generates a random tour of all cities
+void Tour::createIndividual(vector<tspCity> cities){
+	tour = cities;								// Copies vector of cities
+	random_shuffle(tour.begin(), tour.end());	// Shuffles tour vector
 }
 
-Tour::Tour(tspCity tour[]) {					//Added the rest of the attributes for creation
-	cityArray = new tspCity[tourSize()];					 
-	this->cityIndex = tourSize();
-	this->cityIndex = 0;
-	this->fitness = 0;
-	this->distance = 0;
-	for (int i = 0; i < this->tourSize(); i++) {
-		this->cityArray[i] = tour[i];
-	}
+//Returns a tspCity, for city at given tour position
+tspCity Tour::getCity(int tourPosition){
+	return tour.at(tourPosition);
 }
 
-Tour::~Tour() {
+// Pushes city onto tour
+void Tour::setCity(tspCity thisCity){
+	tour.push_back(thisCity);
+	size++;
 }
 
-//Populate the initial tour from the vector
-Tour Tour::createInitialTour(vector<tspCity> &Cities) {
-	int size = Cities.size();
-    cityIndex = 0;
-	tspCity * cityArray = new tspCity[size];
-	for (int i = 0; i < size; i++) {
-		cityArray[i] = Cities[i];
-		cityIndex++;
-	}
-    
-    fitness = 0;
-    distance = 0;
-    
-    return this;
+// Sets city at a given tour position
+void Tour::setCity(int tourPosition, tspCity thisCity){
+	tour.at(tourPosition) = thisCity;
 }
 
-// Creates a random individual													
-void Tour::generateIndividual() {
-	// Loop through all our destination cities and add them to our tour
-	for (int i = 0; i < tourSize(); i++) {		
-		setCity(i, getCity(i));
-	}
-
-	// Randomly reorder the tour
-	std::random_shuffle(&this[0], &this[tourSize()]);
+// Gets distance between two cities
+double Tour::distanceTwoCities(tspCity fromCity, tspCity destinationCity){
+	int xDist = abs(fromCity.getX() - destinationCity.getX());
+	int yDist = abs(fromCity.getY() - destinationCity.getY());
+	return round(sqrt((xDist * xDist) + (yDist * yDist)));
 }
 
-// Sets a city in a certain position within a tour
-void Tour::setCity(int tourPosition, tspCity inputCity) {
-	this->cityArray[tourPosition] = inputCity;
-	fitness = 0;
-	distance = 0;
-}
-
-// Gets the total distance of the tour
-int Tour::getDistance() {
-	if (distance == 0) {
-		int tourDistance = 0;
-		// Loop through our tour's cities
-		for (int i = 0; i < tourSize(); i++) {
-			// Get city we're travelling from
-			tspCity fromCity = getCity(i);						
-			// City we're travelling to
-			tspCity destinationCity;										
-			// Check we're not on our tour's last city, if we are set our 
-			// tour's final destination city to our starting city
-			if (i + 1 < tourSize()) {
-				destinationCity = getCity(i + 1);
-			}
-			else {
-				destinationCity = getCity(0);
-			}
-			// Get the distance between the two cities
-			tourDistance += fromCity.distanceTo(&destinationCity); 
+//Returns a double, for tour distance
+double Tour::getDistance(){
+	if (distance == 0)
+	{
+		int size = tour.size();
+		for (int i = 0; i < size - 1; i++)
+		{
+			distance += distanceTwoCities(tour.at(i), tour.at(i + 1));
 		}
-		distance = tourDistance;
+		distance += distanceTwoCities(tour.at(0), tour.at(size - 1));
 	}
 	return distance;
 }
 
-// Gets a city from the tour
-tspCity Tour::getCity(int tourPosition) {
-	return this->cityArray[tourPosition];
+//Returns a double, for tour fitness
+double Tour::getFitness(){
+	return 1 / getDistance();
 }
 
-// Gets the tours fitness
-double Tour::getFitness() {
-	if (fitness == 0) {
-		fitness = 1 / (double)getDistance();
-	}
-	return fitness;
-}
-
-//Get number of cities on our tour
-int Tour::tourSize() {
-	return this->cityIndex;
-}
-
-// Check if the tour contains a city
-bool Tour::containsCity(tspCity thisCity) {
-	for (int i = 0; i < tourSize(); i++) {
-		if ((this->cityArray[i].getId() == thisCity.getId()) & (this->cityArray[i].getId() != -1))
-			return true;
-	}
-	return 0;
+// Returns an integer, for size of tour
+int Tour::getTourSize(){
+	return tour.size();
 }
