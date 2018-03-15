@@ -19,6 +19,7 @@ private:
 
 public:
 	Tour();
+	Tour(int);
 	Tour(vector<tspCity> &);
 	Tour(tspCity []);
 	~Tour();

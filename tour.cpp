@@ -12,27 +12,45 @@
 #include "tspCity.hpp"
 #include "tspFileHandler.hpp"
 
-
 // Constructs a blank tour
 Tour::Tour() {
-
-	cityArray = new tspCity;
-	this->cityIndex = 0;
-	this->fitness = 0;
-	this->distance = 0;
-	for (int i = 0; i < tourSize(); i++) {
+	cityArray = new tspCity[1];					//Added brackets and size - so it isn't creating a new city
+	cityIndex = 0;
+	fitness = 0;
+	distance = 0;
+	for (int i = 0; i < tourSize(); i++) {		
 		cityArray[i].setId(-1);
 		cityIndex++;
 	}
 }
 
-Tour::Tour(vector<tspCity> &Cities) {
+Tour::Tour(int thisPopSize) {
+	cityArray = new tspCity[thisPopSize];					//ACreated another constructor
+	cityIndex = thisPopSize;
+	fitness = 0;
+	distance = 0;
+	for (int i = 0; i < thisPopSize; i++) {		
+		cityArray[i].setId(-1);
+		//cityIndex++;
+	}
+}
+
+Tour::Tour(vector<tspCity> &Cities) {			//Added the rest of the attributes for creation
+	cityArray = new tspCity[Cities.size()];					 
+	this->cityIndex = Cities.size();
+	this->fitness = 0;
+	this->distance = 0;
 	for (int i = 0; i < this->tourSize(); i++) {
 		this->cityArray[i] = Cities.at(i);
 	}
 }
 
-Tour::Tour(tspCity tour[]) {
+Tour::Tour(tspCity tour[]) {					//Added the rest of the attributes for creation
+	cityArray = new tspCity[tourSize()];					 
+	this->cityIndex = tourSize();
+	this->cityIndex = 0;
+	this->fitness = 0;
+	this->distance = 0;
 	for (int i = 0; i < this->tourSize(); i++) {
 		this->cityArray[i] = tour[i];
 	}
