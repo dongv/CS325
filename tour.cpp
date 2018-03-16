@@ -65,11 +65,11 @@ double Tour::getDistance(){
 		int size = cityList.size();
 		for (int i = 0; i < size - 1; i++)
 		{
-			//distance += distanceTwoCities(cityList.at(i), cityList.at(i + 1));
-            distance += cityList.at(i).distanceTo(cityList.at(i+1));
+			distance += distanceTwoCities(cityList.at(i), cityList.at(i + 1));
+            //distance += cityList.at(i).distanceTo(cityList.at(i+1));
 		}
-		//distance += distanceTwoCities(cityList.at(0), cityList.at(size - 1));
-        distance += cityList.at(0).distanceTo(cityList.at(size - 1));
+		distance += distanceTwoCities(cityList.at(0), cityList.at(size - 1));
+        //distance += cityList.at(0).distanceTo(cityList.at(size - 1));
 	}
 	return distance;
 }
