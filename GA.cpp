@@ -28,7 +28,8 @@ Population GA::evolvePopulation(Population pop) {
    
     // Loop over the new population's size and create child from
     // selected parents
-    for (int i = eliteOffset; i < newGen.populationSize(); i++) {
+   //**CHANGED FROM:   for (int i = eliteOffset; i < newGen.populationSize(); i++) {
+	for (int i = eliteOffset; i < pop.populationSize(); i++) {
         // Select parents
         Tour p1 = tournamentSelection(pop);
         Tour p2 = tournamentSelection(pop);
@@ -39,7 +40,7 @@ Population GA::evolvePopulation(Population pop) {
     }
     
     // Mutate the new population to increase variation
-    for (int i = eliteOffset; i < newGen.populationSize(); i++) {
+    for (int i = eliteOffset; i < pop.populationSize(); i++) {
         mutate(newGen.getTour(i));
     }
     

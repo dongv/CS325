@@ -55,8 +55,11 @@ double getMilliseconds()
 int main(int argc, char* argv[])
 {
     //Establish program variable identifiers
-    string inputFilename;
-    string outputFilename;
+    //string inputFilename = ("C:\\Users\\shara\\Documents\\CS325-vectorApproach\\316-1\\316-1\\tsp_short.txt");
+   
+	//string inputFilename = ("C:\\Users\\shara\\Documents\\CS325-vectorApproach\\316-1\\316-1\\tsp_example_1.txt");
+	string inputFilename;
+	string outputFilename;
     int finalDistance;
     Tour finalTour;
     vector<tspCity> cities;
@@ -78,7 +81,7 @@ int main(int argc, char* argv[])
 //    aTour = aTour.createInitialTour(cities);
     
     // Initialize population
-    Population pop = Population(50, &cities);
+    Population pop = Population(50, &cities);	//***CHANGE BACK TO 50
     printf("Initial distance: %f\n", pop.getFittest().getDistance());
 
     // Evolve population for 100 generations
