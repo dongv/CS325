@@ -83,7 +83,7 @@ int main(int argc, char* argv[])
 
     // Evolve population for 100 generations
     pop = geneticAlgo.evolvePopulation(pop);
-    for (int i = 0; i < 1000; i++) {
+    for (int i = 0; i < 10000; i++) {
         pop = geneticAlgo.evolvePopulation(pop);
     }
     

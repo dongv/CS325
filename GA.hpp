@@ -16,7 +16,7 @@
 class GA {
 private:
     /* GA parameters */
-    double muteRate = 2;
+    double muteRate = 5;
     int tSize = 5;
     bool elite = true;
 	std::vector<Tour> tours;

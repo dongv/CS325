@@ -54,9 +54,9 @@ int tspCity::getY(){
     return this->y;
 }
 
-int tspCity::distanceTo(tspCity* dest){
-    int xDist = abs(this->getX() - dest->getX());
-    int yDist = abs(this->getY() - dest->getY());
+int tspCity::distanceTo(tspCity dest){
+    int xDist = abs(this->getX() - dest.getX());
+    int yDist = abs(this->getY() - dest.getY());
     float sqrtVal;
     int result;
     
