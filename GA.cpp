@@ -4,7 +4,7 @@
 //  Created by Vinh on 3/10/18.
 //
 //
-
+#include <unordered_set>
 #include "GA.hpp"
 //#include "Population.hpp"
 //#include "tour.hpp"
@@ -82,11 +82,11 @@ Tour GA::crossover(Tour p1, Tour p2) {
 // Mutate a tour using swap mutation
 void GA::mutate(Tour tour) {
     // Loop through tour cities
-    for(int i=0; i < tour.tourSize(); i++){
+    for(int i=0; i < tour.getTourSize(); i++){
         // Apply mutation rate
         if((rand()%100) < muteRate){
             // Get a second random position in the tour
-            int tourPos = (rand() % tour.tourSize());
+            int tourPos = (rand() % tour.getTourSize());
             
             // Get the cities at target position in tour
             tspCity city1 = tour.getCity(i);
