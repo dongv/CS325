@@ -10,8 +10,8 @@
 **
 ** References:
 **   [1] ChewS CS325 Assignment 2
-**   [2] 
-**   [3] 
+**   [2] Java Example: http://www.theprojectspot.com/tutorial-post/applying-a-genetic-algorithm-to-the-travelling-salesman-problem/5
+**   [3] Vector Example: https://github.com/Adam-Flammino/TravelingSalesmanGeneticAlgorithim/blob/master/TravelingSalesmanGeneticAlgorithim.cpp
 ***********************************************/
 
 
@@ -90,7 +90,6 @@ int main(int argc, char* argv[])
     cout << "Finished";
     printf("Final distance: %d", finalDistance);
     cout << "Solution:";
-//    System.out.println(pop->getFittest());
     
     
     
