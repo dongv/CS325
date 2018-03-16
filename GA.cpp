@@ -4,7 +4,7 @@
 //  Created by Vinh on 3/10/18.
 //
 //
-#include <unordered_set>
+
 #include "GA.hpp"
 //#include "Population.hpp"
 //#include "tour.hpp"
@@ -58,18 +58,18 @@ Tour GA::crossover(Tour p1, Tour p2) {
 	for (int i = 0; i < s1; i++) // Add cities from first half of parent1;
 	{
 		child.setCity(p1.getCity(i));
-		citiesOnTour.insert(p1.getCity(i).getID());
+		citiesOnTour.insert(p1.getCity(i).getId());
 	}
 	for (int i = s2; i < pSize; i++)
 	{
 		child.setCity(p1.getCity(i));
-		citiesOnTour.insert(p1.getCity(i).getID());
+		citiesOnTour.insert(p1.getCity(i).getId());
 	}
 	// Fill in missing cities using parent 2
 	int iter = 0;
 	while (child.getTourSize() != pSize)
 	{
-		if (citiesOnTour.count(p2.getCity(iter).getID()) == 0)
+		if (citiesOnTour.count(p2.getCity(iter).getId()) == 0)
 		{
 			child.setCity(p2.getCity(iter));
 		}

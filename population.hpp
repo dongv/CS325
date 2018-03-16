@@ -8,15 +8,34 @@
 #include "tour.hpp"
 #include <vector>
 
+// List of Cities
+class CityList {
+public:
+    vector<tspCity> cities; // Holds Cities
+    
+    void addCity(tspCity newCity){
+	cities.push_back(newCity);
+    }
+    
+    tspCity getCity(int i){
+	return cities.at(i);
+    }
+    
+    vector<tspCity> getCityList(){
+	return cities;
+    }
+};
+
+
 // Population of tours
 class Population
 {
 	vector<Tour> tours;			// Holds tour of tours
-	//***CLEANUP		CityList cl;
+	CityList cl;
 	int size = 0;
 public:
 	// Constructor that seeds random tours of cities
-	Population(int, vector<tspCity>);
+	Population(int, vector<tspCity>*);
 
 	// Default constructor
 	Population();

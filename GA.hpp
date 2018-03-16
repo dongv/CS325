@@ -8,9 +8,10 @@
 #define GA_hpp
 
 #include <cstdlib>  //for rand
-#include "Population.hpp"
+#include "population.hpp"
 #include "tour.hpp"
 #include <vector>
+#include <unordered_set>
 
 class GA {
 private:

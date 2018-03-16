@@ -21,6 +21,7 @@
 #include <cstring>
 #include <vector>
 #include <algorithm>
+#include <time.h>
 
 //Establish a compiler constant for test array
 #define ARRQTY 100
@@ -32,7 +33,7 @@
 #include "tspFileHandler.hpp"
 #include "tour.hpp"
 #include "GA.hpp"
-#include "Population.hpp"
+#include "population.hpp"
 
 
 //Establish unique identifiers within namespace
@@ -62,6 +63,9 @@ int main(int argc, char* argv[])
     GA geneticAlgo;
     
     
+    // Needed so random cities are actually random
+	srand(time(nullptr)); 
+    
     
     //prepare the loadInput parameters
     inputFilename = argv[1];
@@ -74,22 +78,21 @@ int main(int argc, char* argv[])
 //    aTour = aTour.createInitialTour(cities);
     
     // Initialize population
-    Population* pop = new Population(50, cities);
-    printf("Initial distance: %d", pop->getFittest().getDistance());
+    Population pop = Population(50, &cities);
+    printf("Initial distance: %f\n", pop.getFittest().getDistance());
 
     // Evolve population for 100 generations
     pop = geneticAlgo.evolvePopulation(pop);
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; i < 1000; i++) {
         pop = geneticAlgo.evolvePopulation(pop);
     }
     
-    finalTour = pop->getFittest();
+    finalTour = pop.getFittest();
     finalDistance = finalTour.getDistance();
 
     // Print final results
-    cout << "Finished";
-    printf("Final distance: %d", finalDistance);
-    cout << "Solution:";
+    cout << "Finished\n";
+    printf("Final distance: %d\n", finalDistance);
     
     
     

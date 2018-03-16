@@ -10,19 +10,19 @@
 using std::vector;
 
 // Creates a new population
-Population::Population(int popSize, vector<tspCity> Cities){
-	/*OLD Tour* newTour = new Tour(Cities);
-	distance = newTour->getDistance();
-	fitness = newTour.getFitness();*/
-
-	/*VECTOR EXAMPLE:  for (int i = 0; i < popSize; i++)
-	{
-		cl.addCity(tspCity(i));
+Population::Population(int popSize, vector<tspCity>* Cities){
+    
+    int qtyCities = (int) Cities->size();
+    
+    for(int c = 0; c < qtyCities; c++){
+        cl.addCity(Cities->at(c));
+    }
+    
+    for (int i = 0; i < popSize; i++) {
+        this->tours.push_back(cl.getCityList());
 	}
-	for (int i = 0; i < popSize; i++)
-	{
-		tours.push_back(cl.getCityList());
-	}*/
+    
+    
 	size = tours.size();
 }
 

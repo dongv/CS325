@@ -13,7 +13,6 @@ using std::vector;
 
 class Tour {
 private:
-	vector<tspCity> tour;
 	double distance = 0;
 	double fitness = 0;
 	int size;
@@ -22,6 +21,8 @@ private:
 	double distanceTwoCities(tspCity, tspCity);
 
 public:
+	vector<tspCity> cityList;
+	
 	// Constructor
 	Tour(vector<tspCity> cities);
 
@@ -33,6 +34,9 @@ public:
 
 	// Generates a random tour of all cities
 	void createIndividual(vector<tspCity> cities);
+	
+	// Shuffle Me
+	void shuffleMe();
 
 	// Gets city at position i
 	tspCity getCity(int);

@@ -6,6 +6,7 @@
 #include <vector>
 #include <algorithm>
 #include "tour.hpp"
+#include "GA.hpp"
 using std::vector;
 
 // Constructor
@@ -18,26 +19,36 @@ Tour::Tour(){
 	size = 0;
 }
 
+// Default Destructor
+Tour::~Tour(){
+    //Empty for now
+}
+
 // Generates a random tour of all cities
 void Tour::createIndividual(vector<tspCity> cities){
-	tour = cities;								// Copies vector of cities
-	random_shuffle(tour.begin(), tour.end());	// Shuffles tour vector
+	cityList = cities;								// Copies vector of cities
+	random_shuffle(cityList.begin(), cityList.end());	// Shuffles tour vector
+}
+
+// Shuffle Me
+void Tour::shuffleMe(){
+    random_shuffle(this->cityList.begin(), this->cityList.end());
 }
 
 //Returns a tspCity, for city at given tour position
 tspCity Tour::getCity(int tourPosition){
-	return tour.at(tourPosition);
+	return cityList.at(tourPosition);
 }
 
 // Pushes city onto tour
 void Tour::setCity(tspCity thisCity){
-	tour.push_back(thisCity);
+	cityList.push_back(thisCity);
 	size++;
 }
 
 // Sets city at a given tour position
 void Tour::setCity(int tourPosition, tspCity thisCity){
-	tour.at(tourPosition) = thisCity;
+	cityList.at(tourPosition) = thisCity;
 }
 
 // Gets distance between two cities
@@ -51,12 +62,12 @@ double Tour::distanceTwoCities(tspCity fromCity, tspCity destinationCity){
 double Tour::getDistance(){
 	if (distance == 0)
 	{
-		int size = tour.size();
+		int size = cityList.size();
 		for (int i = 0; i < size - 1; i++)
 		{
-			distance += distanceTwoCities(tour.at(i), tour.at(i + 1));
+			distance += distanceTwoCities(cityList.at(i), cityList.at(i + 1));
 		}
-		distance += distanceTwoCities(tour.at(0), tour.at(size - 1));
+		distance += distanceTwoCities(cityList.at(0), cityList.at(size - 1));
 	}
 	return distance;
 }
@@ -68,5 +79,5 @@ double Tour::getFitness(){
 
 // Returns an integer, for size of tour
 int Tour::getTourSize(){
-	return tour.size();
+	return cityList.size();
 }

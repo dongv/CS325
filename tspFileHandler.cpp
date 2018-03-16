@@ -68,11 +68,11 @@ void printOutput(string* filename, int tourValue, Tour finalTour){
     if (DEBUG)
         cout << tourValue << "!\n";
     //print the tour value as the 1st line in the output file
-    outputFile << tourValue << "!\n";
+    outputFile << tourValue << "\n";
     
     
 	//for each element of the tour
-    for (int i = 0; i < (int) finalTour.tourSize(); i++) {
+    for (int i = 0; i < (int) finalTour.getTourSize(); i++) {
         //in DEBUG_MODE: print each value as a line to stdout
         if (DEBUG)
             cout << finalTour.getCity(i).getId() << "\n";
