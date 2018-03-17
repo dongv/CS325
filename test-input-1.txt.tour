@@ -1,0 +1,61 @@
+50 popsize
+3 muteRate
+5000 iterations
+Initial distance: 21913.000000
+Final distance: 5787
+Finished
+5787!
+49
+42
+8
+32
+16
+44
+30
+24
+9
+20
+2
+47
+7
+26
+6
+15
+18
+23
+46
+41
+25
+34
+3
+11
+39
+35
+31
+4
+27
+33
+19
+17
+48
+40
+37
+29
+13
+14
+28
+36
+21
+10
+45
+1
+0
+5
+22
+43
+12
+38
+
+RUN FINISHED; exit value 0; real time: 47s; user: 210ms; system: 46s
+
+
