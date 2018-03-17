@@ -14,14 +14,14 @@ CXXFLAGS += -pedantic-errors
 CXXFLAGS += -g
 
 # project specific variables
-TOPPRG = tsp_group14
+TOPPRG = group14_tsp
 ZIPID = CS325_TSP_Group14.zip
 
-OBJS = chews_tsp.o tspCity.o tspFileHandler.o GA.o Population.o tour.o
+OBJS = group14_tsp.o tspCity.o tspFileHandler.o GA.o population.o tour.o
 
-SRCS = chews_tsp.cpp tspCity.cpp tspFileHandler.cpp GA.cpp Population.cpp tour.cpp
+SRCS = group14_tsp.cpp tspCity.cpp tspFileHandler.cpp GA.cpp population.cpp tour.cpp
 
-HEADERS = tspCity.hpp tspFileHandler.hpp GA.hpp Population.hpp tour.hpp
+HEADERS = tspCity.hpp tspFileHandler.hpp GA.hpp population.hpp tour.hpp
 
 UTILTXT = 
 
