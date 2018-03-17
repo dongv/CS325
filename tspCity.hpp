@@ -34,7 +34,7 @@ public:
     int getId();
     int getX();
     int getY();
-    int distanceTo(tspCity* dest);
+    int distanceTo(tspCity dest);
     std::string cityInfo();
     
 };

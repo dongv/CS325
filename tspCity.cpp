@@ -11,6 +11,7 @@
  * Created on March 10, 2018, 10:59 PM
  */
 
+
 #include "tspCity.hpp"
 
 tspCity::tspCity() {
@@ -53,9 +54,9 @@ int tspCity::getY(){
     return this->y;
 }
 
-int tspCity::distanceTo(tspCity* dest){
-    int xDist = abs(this->getX() - dest->getX());
-    int yDist = abs(this->getY() - dest->getY());
+int tspCity::distanceTo(tspCity dest){
+    int xDist = abs(this->getX() - dest.getX());
+    int yDist = abs(this->getY() - dest.getY());
     float sqrtVal;
     int result;
     

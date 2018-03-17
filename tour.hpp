@@ -6,30 +6,54 @@
 #ifndef TOUR_HPP
 #define TOUR_HPP
 #include "tspCity.hpp"
-#include <vector>
 
+#include <vector>
 using std::vector;
 
-class Tour: public tspCity {
+
+class Tour {
 private:
-	tspCity* cityArray;
-	double fitness;
-	int distance;
-	int cityIndex;
+	double distance = 0;
+	double fitness = 0;
+	int size;
+
+	// Gets distance between two cities
+	double distanceTwoCities(tspCity, tspCity);
 
 public:
+	vector<tspCity> cityList;
+	
+	// Constructor
+	Tour(vector<tspCity> cities);
+
+	// Default constructor
 	Tour();
-	Tour(int);
-	Tour(vector<tspCity> &);
-	Tour(tspCity []);
-	~Tour();
-	Tour createInitialTour(vector<tspCity> &);
-	void generateIndividual();
+
+	//Destructor
+	virtual ~Tour();
+
+	// Generates a random tour of all cities
+	void createIndividual(vector<tspCity> cities);
+	
+	// Shuffle Me
+	void shuffleMe();
+
+	// Gets city at position i
 	tspCity getCity(int);
+
+	// Pushes city onto tour
+	void setCity(tspCity);
+
+	// Sets city at position i
 	void setCity(int, tspCity);
+
+	// Gets distance traveled
+	double getDistance();
+
+	// Gets fitness of tour individual
 	double getFitness();
-	int getDistance();
-	int tourSize();
-	bool containsCity(tspCity);
+
+	// Gets size of tour
+	int getTourSize();
 };
 #endif /* TOUR_HPP */

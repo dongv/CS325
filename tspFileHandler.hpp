@@ -14,7 +14,6 @@
 #ifndef TSPFILEHANDLER_HPP
 #define TSPFILEHANDLER_HPP
 
-#define DEBUG false
 
 #include <iostream>
 #include <fstream>
@@ -29,9 +28,9 @@ using std::vector;
 #include "tour.hpp"
 
 
-void loadInput(string* filename, vector<tspCity> *cities);
+void loadInput(string *filename, vector<tspCity> *cities);
 
-void printOutput(string* filename, int tourValue, Tour finalTour);
+void printOutput(string *filename, int tourValue, Tour finalTour);
 
 #endif /* TSPFILEHANDLER_HPP */
 

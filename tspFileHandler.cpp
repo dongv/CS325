@@ -7,8 +7,7 @@
 #include "tspFileHandler.hpp"
 
 
-
-void loadInput(string* filename, vector<tspCity> *cities){
+void loadInput(string *filename, vector<tspCity> *cities){
     //Attempt to open input file
     std::ifstream inputFile;
     string readValue;
@@ -43,8 +42,8 @@ void loadInput(string* filename, vector<tspCity> *cities){
                 tempCity.setY(std::stoi(readValue));
                 
                 //DEBUG_MODE: Print City Summary Line
-                if (DEBUG)
-                    cout << tempCity.cityInfo();
+                //if (DEBUG)
+                 //   cout << tempCity.cityInfo();
                 
                 ival = 0;
                 cities->push_back(tempCity);
@@ -65,16 +64,16 @@ void printOutput(string* filename, int tourValue, Tour finalTour){
 	
     //for the tourValue
     // in DEBUG_MODE: print the tour value as a line to stdout
-    if (DEBUG)
+    //if (DEBUG)
         cout << tourValue << "!\n";
     //print the tour value as the 1st line in the output file
-    outputFile << tourValue << "!\n";
+    outputFile << tourValue << "\n";
     
     
 	//for each element of the tour
-    for (int i = 0; i < (int) finalTour.tourSize(); i++) {
+    for (int i = 0; i < (int) finalTour.getTourSize(); i++) {
         //in DEBUG_MODE: print each value as a line to stdout
-        if (DEBUG)
+    //    if (DEBUG)
             cout << finalTour.getCity(i).getId() << "\n";
         //print each value as a line in output file
         outputFile << finalTour.getCity(i).getId() << "\n";
