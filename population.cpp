@@ -7,7 +7,13 @@
 #include "population.hpp"
 #include "tspCity.hpp"
 #include <vector>
+#include <algorithm>
 using std::vector;
+
+bool compareTour (Tour left, Tour right){
+    return (left.getDistance() < right.getDistance() );
+}
+
 
 // Creates a new population
 Population::Population(int popSize, vector<tspCity>* Cities){
@@ -64,6 +70,12 @@ Tour Population::getFittest(){
 	}
 	return fittest;
 }
+
+
+void Population::sortMe(){
+    sort(this->tours.begin(),this->tours.end(),compareTour);
+}
+
 
 //Returns an integer for the population size
 int Population::populationSize(){

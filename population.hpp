@@ -56,6 +56,8 @@ public:
 
 	// Finds shortest tour
 	Tour getFittest();
+	
+	void sortMe();
 
 	int populationSize();
 };

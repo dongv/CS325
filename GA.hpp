@@ -19,7 +19,9 @@ private:
     double muteRate = 5;
     int tSize = 5;
     bool elite = true;
-	std::vector<Tour> tours;
+    int qtyElite = 5;
+    
+    std::vector<Tour> tours;
     
 public:
     

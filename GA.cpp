@@ -104,10 +104,13 @@ void GA::mutate(Tour tour) {
 Tour GA::tournamentSelection(Population pop) {
     // Create a tournament population
 	Population tournament;
+    
+    int qtyOptions = pop.populationSize() / 2;
+    
     // For each place in the tournament get a random candidate tour and
     // add it
     for (int i = 0; i < tSize; i++) {
-        int randID = (rand() % pop.populationSize());
+        int randID = (rand() % qtyOptions);
         tournament.saveTour(pop.getTour(randID));
     }
     // Get the fittest tour

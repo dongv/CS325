@@ -85,7 +85,7 @@ int main(int argc, char* argv[])
     printf("Initial distance: %f\n", pop.getFittest().getDistance());
 
     // Evolve population for 100 generations
-    pop = geneticAlgo.evolvePopulation(pop);
+    //pop = geneticAlgo.evolvePopulation(pop);
     for (int i = 0; i < 1000; i++) {
         pop = geneticAlgo.evolvePopulation(pop);
     }
